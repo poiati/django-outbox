@@ -1,4 +1,10 @@
-# Django settings for django_outbox project.
+from os.path import join, dirname, abspath
+
+here = lambda *paths: join(dirname(abspath(__file__)), *paths)                          
+                                                                                        
+PROJECT_ROOT = here('..')                                                               
+                                                                                        
+root = lambda *paths: join(PROJECT_ROOT, *paths)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -7,12 +13,15 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = root('tmp', 'app-mails')
+
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': ':memory:',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -120,6 +129,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'outbox',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

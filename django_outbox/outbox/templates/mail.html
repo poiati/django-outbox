@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <article class="outbox-mail">
+    <header>
+      <ul>
+        <li>
+          <b>Subject:</b>
+          <span>{{ mail.subject }}</span>
+        </li>
+        <li>
+          <b>From:</b>
+          <span>{{ mail.from_address }}</span>
+        </li>
+        <li>
+          <b>To:</b>
+          <span>{{ mail.to }}</span>
+        </li>
+        <li>
+          <b>When:</b>
+          <span>{{ mail.when }}</span>
+        </li>
+      </ul>
+    </header>
+    <section class="body">
+      {{ mail.body }}
+    </section>
+  </article>
+{% endblock content %}

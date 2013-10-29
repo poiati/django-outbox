@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  font-family: Verdana;
+}
+
+.outbox-header {
+  padding: 0.5em;
+
+  background: #234F32;
+}
+
+.outbox-header h1 a {
+  color: #ffc757;
+
+  text-decoration: none;
+}
+
+.outbox-mail {
+  margin: 1em;
+}
+
+.outbox-mail ul {
+  margin: 2em 0;
+
+  list-style: none;
+}
+
+.outbox-mail li {
+  margin: 0.1em 0;
+}
+
+.outbox-empty {
+  padding: 1em;
+}
+
+.outbox-table {
+  width: 97%;
+
+  margin: 1em auto;
+
+  border-collapse: collapse;
+}
+
+.outbox-table th {
+  padding: 0.8em 0.3em;
+
+  background: #487858;
+  color: #ffc757;
+
+  text-align: left;
+}
+
+.outbox-table tr td {
+  padding: 0.3em;
+
+  font-size: 0.8em;
+}
+
+.outbox-table tr td, .outbox-table tr th {
+  border: 1px solid #487858;
+}

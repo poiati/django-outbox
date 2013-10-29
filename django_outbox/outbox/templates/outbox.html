@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if mails %}
+    <table class="outbox-table">
+      <thead>
+        <tr>
+          <th>subject</th>
+          <th>from</th>
+          <th>to</th>
+          <th>when</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for mail in mails %}
+          <tr>
+            <td>
+              <a href="{% url 'mail' id=mail.id %}">{{ mail.subject }}</a>
+            </td>
+            <td>{{ mail.from_address }}</td>
+            <td>{{ mail.to }}</td>
+            <td>{{ mail.when }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="outbox-empty">Outbox is empty.</div>
+  {% endif %}
+{% endblock content %}
