@@ -14,7 +14,7 @@ ADMINS = (
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = root('tmp', 'app-mails')
+EMAIL_FILE_PATH = here('tmp', 'app-mails')
 
 MANAGERS = ADMINS
 
@@ -111,10 +111,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'django_outbox.urls'
+ROOT_URLCONF = 'tests.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'django_outbox.wsgi.application'
+WSGI_APPLICATION = 'tests.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -129,7 +129,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'outbox',
+    'django_outbox',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

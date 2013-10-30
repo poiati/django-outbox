@@ -10,7 +10,7 @@ from django.conf import settings
 
 from expecter import expect
 
-from outbox.outbox import Outbox
+from django_outbox.outbox import Outbox
 
 
 class OutboxTestMixin(object):

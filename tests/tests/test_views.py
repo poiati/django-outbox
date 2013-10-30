@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from mock import patch
 from expecter import expect
 
-from outbox.outbox import Outbox, Mail
+from django_outbox.outbox import Outbox, Mail
 
 
 class OutboxTemplateViewTest(TestCase):
@@ -14,7 +14,7 @@ class OutboxTemplateViewTest(TestCase):
         Mail('20101010', 'Bar', 'bar@example.com', 'baz@example.com', 
             'Sat, 26 Oct 2013 17:15:32 -0000', 'Bar content'))
 
-    @patch('outbox.views.Outbox', spec=Outbox)
+    @patch('django_outbox.views.Outbox', spec=Outbox)
     def test_get(self, outbox_class):
         outbox_class.return_value.all.return_value = self.mails
         response = self.client.get(self._reverse())
@@ -31,7 +31,7 @@ class EmailTemplateViewTest(TestCase):
     mail = Mail(id, 'Foo', 'foo@example.com', 'baz@example.com', 
             'Sat, 26 Oct 2013 17:15:32 -0000', 'Foo content')
 
-    @patch('outbox.views.Outbox', spec=Outbox)
+    @patch('django_outbox.views.Outbox', spec=Outbox)
     def test_get(self, outbox_class):
         outbox_class.return_value.get.return_value = self.mail
 
