@@ -4,7 +4,7 @@ from .outbox import Outbox
 
 
 class OutboxTemplateView(TemplateView):
-    template_name = 'outbox.html'
+    template_name = 'django_outbox/outbox.html'
 
     def get_context_data(self, **kwargs):
         context = super(OutboxTemplateView, self).get_context_data(**kwargs)
@@ -13,7 +13,7 @@ class OutboxTemplateView(TemplateView):
 
 
 class MailTemplateView(TemplateView):
-    template_name = 'mail.html'
+    template_name = 'django_outbox/mail.html'
 
     def get_context_data(self, id, **kwargs):
         context = super(MailTemplateView, self).get_context_data(**kwargs)
