@@ -2,9 +2,7 @@
 Django Outbox
 =============
 
-Django Outbox is an app that enable you to see the emails sent by your project through the web browser.
-
-It capture all mails and show in a simple web interface.
+Capture all mails sent and show it in a simple web interface.
 
 Quick Start
 -----------
