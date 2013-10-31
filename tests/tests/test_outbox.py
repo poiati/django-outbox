@@ -20,12 +20,7 @@ class OutboxTestMixin(object):
                 'django.core.mail.backends.filebased.EmailBackend'
 
         self._clearmails()
-
-        mail.send_mail(
-                'Look at Foo!', 
-                'Here is my Foo.', 
-                'sender@example.com',
-                ['foo@example.com'])
+        self._send_mail()
 
         self.outbox = Outbox()
 
@@ -33,31 +28,16 @@ class OutboxTestMixin(object):
         if path.exists(settings.EMAIL_FILE_PATH):
             shutil.rmtree(settings.EMAIL_FILE_PATH)
 
-
-class OutboxAllTest(OutboxTestMixin, TestCase):
-
-    def setUp(self):
-        super(OutboxAllTest, self).setUp()
-
-        # Need this beacuse the mail filename is based on the current
-        # timestamp, without this the first mail will be overriden
+    def _send_mail(self, subject='Look at Foo!'):
         sleep(1)
 
         mail.send_mail(
-                'Look at Bar!', 
-                'Here is my Bar.', 
+                subject, 
+                'Here is my Foo.', 
                 'sender@example.com',
-                ['bar@example.com'])
+                ['foo@example.com'])
 
-    def test_fetch_all_sent_mails(self):
-        mails = self.outbox.all()
-
-        expect(len(mails)) == 2
-
-    def test_mail_data(self):
-        mails = self.outbox.all()
-        mail = mails[0]
-        
+    def _assert_mail_data(self, mail):
         expect(mail.id).contains(datetime.strftime(datetime.now(), '%Y%m%d'))
         expect(mail.subject) == 'Look at Foo!'
         expect(mail.to) == 'foo@example.com'
@@ -65,12 +45,37 @@ class OutboxAllTest(OutboxTestMixin, TestCase):
         expect(mail.body) == 'Here is my Foo.\n'
 
 
+class OutboxAllTest(OutboxTestMixin, TestCase):
+
+    def test_fetch_all_sent_mails(self):
+        self._send_mail('Look at Bar!')
+
+        mails = self.outbox.all()
+
+        expect(len(mails)) == 2
+
+    def test_mail_order_is_from_the_most_recent_to_the_oldest(self):
+        self._send_mail('Look at Bar!')
+        self._send_mail('Look at Qux!')
+
+        mails = self.outbox.all()
+
+        expect([mail.subject for mail in mails]) == [
+                'Look at Qux!', 'Look at Bar!', 'Look at Foo!']
+
+    def test_mail_data(self):
+        mails = self.outbox.all()
+        mail = mails[0]
+        
+        self._assert_mail_data(mail)
+
+
 class OutboxGetTest(OutboxTestMixin, TestCase):
 
     def test_get_a_specific_email(self):
         mail = self.outbox.get(self._get_mail_id())
 
-        expect(mail) != None
+        self._assert_mail_data(mail)
 
     def _get_mail_id(self):
         maildirectory = settings.EMAIL_FILE_PATH
