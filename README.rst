@@ -7,24 +7,32 @@ Capture all mails sent and show it in a simple web interface.
 Quick Start
 -----------
 
-Install the package in your environment::
+Install the package in your environment:
+
+.. code-block:: bash
 
   $ pip install django-outbox
 
-Configure your django development settings file to use file based email backend::
+Configure your django development settings file to use file based email backend:
+
+.. code-block:: python
 
   from os import path
 
   EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
   EMAIL_FILE_PATH = path.join(ROOT_PATH, 'tmp', 'app-mails')
 
-Also add django_outbox to your installed apps::
+Also add django_outbox to your installed apps:
+
+.. code-block:: python
 
   INSTALLED_APPS += (
     django_outbox,
   )
 
-Add the django outbox url to your urls.py::
+Add the django outbox url to your urls.py:
+
+.. code-block:: python
 
   # urls.py
   from django.conf import settings
@@ -43,7 +51,9 @@ Now just run your application in **debug** mode and access */outbox*. All should
 Contributing
 ------------
 
-This project use pytest_. To run the tests just type::
+This project use pytest_. To run the tests just type:
+
+.. code-block:: bash
   
   $ py.test
 
