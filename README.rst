@@ -39,3 +39,12 @@ Add the django outbox url to your urls.py::
 Now just run your application in **debug** mode and access */outbox*. All should be working!
 
 *The project is in early stage. It still don't have some basic features like pagination or support for HTML emails.*
+
+Contributing
+------------
+
+This project use pytest_ To run the tests just type::
+  
+  $ py.test
+
+.. _pytest: http://pytest.org/
