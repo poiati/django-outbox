@@ -43,7 +43,7 @@ Now just run your application in **debug** mode and access */outbox*. All should
 Contributing
 ------------
 
-This project use pytest_ To run the tests just type::
+This project use pytest_. To run the tests just type::
   
   $ py.test
 
