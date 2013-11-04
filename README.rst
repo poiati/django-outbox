@@ -27,7 +27,7 @@ Also add django_outbox to your installed apps:
 .. code-block:: python
 
   INSTALLED_APPS += (
-    django_outbox,
+    'django_outbox',
   )
 
 Add the django outbox url to your urls.py:
