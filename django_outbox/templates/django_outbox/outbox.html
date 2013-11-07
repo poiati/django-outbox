@@ -6,6 +6,7 @@
       <thead>
         <tr>
           <th>subject</th>
+          <th></th>
           <th>from</th>
           <th>to</th>
           <th>when</th>
@@ -15,7 +16,14 @@
         {% for mail in mails %}
           <tr>
             <td>
-              <a href="{% url 'mail' id=mail.id %}">{{ mail.subject }}</a>
+              {{ mail.subject }}
+            </td>
+            <td>
+              {% for content_type in mail.body %}
+                <a href="{% url 'mail' id=mail.id %}?content_type={{ content_type }}">
+                  {{ content_type }}
+                </a>
+              {% endfor %}
             </td>
             <td>{{ mail.from_address }}</td>
             <td>{{ mail.to }}</td>

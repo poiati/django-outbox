@@ -22,13 +22,29 @@ class Outbox(object):
         abspath = path.join(self.maildirectory, filepath)
         with open(abspath) as f:
             message = self._parser.parse(f)
-            return Mail(
-                    filepath,
-                    message.get('Subject'), 
-                    message.get('From'), 
-                    message.get('To'), 
-                    message.get('Date'), 
-                    re.sub(r'\n-+', '', message.get_payload()))
+            return self._convert_message(filepath, message)
+
+    def _convert_message(self, filepath, message):
+        if message.is_multipart():
+            body = {submessage.get_content_type(): 
+                    self._clear_content(submessage.get_payload())
+                        for submessage in message.get_payload()}
+                
+        else:
+            body = {message.get_content_type(): 
+                    self._clear_content(message.get_payload())}
+
+        return Mail(
+                filepath,
+                message.get('Subject'), 
+                message.get('From'), 
+                message.get('To'), 
+                message.get('Date'),
+                message.get_content_type(),
+                body)
+
+    def _clear_content(self, content):
+        return re.sub(r'\n-+', '', content)
 
     @property
     def maildirectory(self):
@@ -37,12 +53,13 @@ class Outbox(object):
 
 class Mail(object):
 
-    def __init__(self, id, subject, from_address, to, when, body):
+    def __init__(self, id, subject, from_address, to, when, content_type, body):
         self._id = id
         self._subject = subject
         self._from_address = from_address
         self._to = to
         self._when = when
+        self._content_type = content_type
         self._body = body
 
     @property
@@ -68,3 +85,7 @@ class Mail(object):
     @property
     def when(self):
         return self._when
+
+    @property
+    def content_type(self):
+        return self._content_type

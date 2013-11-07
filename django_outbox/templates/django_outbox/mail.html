@@ -23,9 +23,13 @@
       </ul>
     </header>
     <section class="body">
-      <pre>
-        {{ mail.body }}
-      </pre>
+      {% if content_type == 'text/html' %}
+        {% autoescape off %}
+          {{ content }}
+        {% endautoescape %}
+      {% else %}
+        <pre>{{ content }}</pre>
+      {% endif %}
     </section>
   </article>
 {% endblock content %}
