@@ -11,9 +11,12 @@ class Outbox(object):
         self._parser = Parser()
 
     def all(self):
-        return list(reversed(
-                [self._message_from_file(filepath) 
-                for filepath in listdir(self.maildirectory)]))
+        try:
+            return list(reversed(
+                    [self._message_from_file(filepath) 
+                    for filepath in listdir(self.maildirectory)]))
+        except OSError:
+            return []
 
     def get(self, id):
         return self._message_from_file(id)
