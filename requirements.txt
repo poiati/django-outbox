@@ -1,7 +1,5 @@
-Django==1.5.5
-expecter==0.2.2
-mock==1.0.1
-py==1.4.17
-pytest==2.4.2
-pytest-django==2.3.1
-wsgiref==0.1.2
+Django==1.7.7
+expecter==0.3.0
+py==1.4.26
+pytest==2.6.4
+pytest-django==2.8.0
